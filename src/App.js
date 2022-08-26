@@ -3,7 +3,6 @@ import { useState, useEffect } from 'react';
 
 const axios = require('axios').default;
 
-
 function App() {
 
   const [products, setProducts] = useState([]);
@@ -18,7 +17,6 @@ function App() {
       await axios.get(url).then(function (response) {
         console.log(response.data);
     
-    
       }).catch(function (error) {
         console.log(error)
       })
@@ -26,16 +24,12 @@ function App() {
 
   }, []);
 
-  
-
-
   // Request usando fetch
 
   useEffect(() => {
 
     (async () => {
       const res = await fetch(url);
-  
       const data = await res.json();
   
       setProducts(data);
@@ -66,12 +60,10 @@ function App() {
     const addedProducts = await res.json();
     setProducts((prevProducts) => [...prevProducts, addedProducts]);
 
-
     // Limpando dados
 
     setName("");
     setPrice("");
-
     
   };
 
@@ -99,11 +91,11 @@ function App() {
           <form onSubmit={handleSubmit}>
             <label>
               Nome:
-              <input type="text" name="name" value={name} onChange={(e) => setName(e.target.value)} />
+              <input type="text" name="name" required value={name} onChange={(e) => setName(e.target.value)} />
             </label>
             <label>
               Preço:
-              <input type="number" name="price" value={price} onChange={(e) => setPrice(e.target.value)} />
+              <input type="number" name="price" required value={price} onChange={(e) => setPrice(e.target.value)} />
             </label>   
             <input type="submit" value="Enviar" />
           </form>
