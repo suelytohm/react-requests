@@ -11,44 +11,9 @@
       "price": 90
     },
     {
-      "id": 3,
-      "name": "Boné aba reta",
-      "price": 29.9
-    },
-    {
-      "name": "Calça Jeans",
-      "price": 65,
-      "id": 4
-    },
-    {
-      "name": "Calça Jeans Feminina",
-      "price": 65,
-      "id": 5
-    },
-    {
-      "name": "Blusa Polo Masculina",
-      "price": 45,
-      "id": 6
-    },
-    {
-      "name": "Blusa Polo Feminina",
-      "price": 45,
-      "id": 7
-    },
-    {
-      "name": "Camisa Slim Masculina",
-      "price": 150,
-      "id": 8
-    },
-    {
-      "name": "Vestido vermelho",
-      "price": 250,
-      "id": 9
-    },
-    {
-      "name": "Vestido Branco",
-      "price": 350,
-      "id": 10
+      "name": "teste",
+      "price": 50,
+      "id": 3
     }
   ]
 }

@@ -1,5 +1,7 @@
 import './App.css';
+import logo from './loading.gif';
 import { useState, useEffect } from 'react';
+
 
 import { useFetch } from './hooks/useFetch';
 
@@ -8,49 +10,63 @@ const axios = require('axios').default;
 function App() {
 
   const [products, setProducts] = useState([]);
-
-  
-  const [name, setName] = useState("");
-  const [price, setPrice] = useState(0);
   
   const url = "http://localhost:3000/products";
   
-  const { data: items } = useFetch(url);
+  const { data: items, httpConfig, loading, error } = useFetch(url);
   
   
-
-  // Request usando axios
-  /*
-  useEffect(() => {
-    (async () => {
-      await axios.get(url).then(function (response) {
-        // console.log(response.data);
-    
-      }).catch(function (error) {
-        console.log(error)
-      })
-    })();
-
-  }, []);
+  const [name, setName] = useState("");
+  const [price, setPrice] = useState(0);
 
 
 
-
-
-
-  // Request usando fetch
-
-  useEffect(() => {
-
-    (async () => {
-      const res = await fetch(url);
-      const data = await res.json();
+// Request usando axios
+/*
+useEffect(() => {
+  (async () => {
+    await axios.get(url).then(function (response) {
+      // console.log(response.data);
   
-      setProducts(data);
+    }).catch(function (error) {
+      console.log(error)
+    })
+  })();
 
-    })();
-  }, []);
+}, []);
+
+
+// Request usando fetch
+
+useEffect(() => {
+
+  (async () => {
+    const res = await fetch(url);
+    const data = await res.json();
+
+    setProducts(data);
+
+  })();
+}, []);
 */
+
+  /*
+  const res = await fetch(url, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(product),
+  });
+
+  // Carregamento dinâmico
+
+  const addedProducts = await res.json();
+  setProducts((prevProducts) => [...prevProducts, addedProducts]);
+  */
+  // Limpando dados
+
+
 
 
   const handleSubmit = async (e) => {
@@ -61,32 +77,42 @@ function App() {
       price: parseFloat(price),
     };
 
-    const res = await fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(product),
-    });
-
-    // Carregamento dinâmico
-
-    const addedProducts = await res.json();
-    setProducts((prevProducts) => [...prevProducts, addedProducts]);
-
-    // Limpando dados
-
+    
+    
+    httpConfig(product, "POST");
+    
     setName("");
     setPrice("");
     
   };
-
+  
   return (
     <div className="App">
       <div className="title">
         <h1>Lista de produtos</h1>
       </div>
       <div>
+      <div className="add-product">
+          <form onSubmit={handleSubmit}>
+            <label>
+              Nome:
+              <input type="text" name="name" required value={name} onChange={(e) => setName(e.target.value)} />
+            </label>
+            <label>
+              Preço:
+              <input type="number" name="price" required value={price} onChange={(e) => setPrice(e.target.value)} />
+            </label>   
+            {/** Loading Post */}
+            {loading && <input type="submit" disabled value="Aguarde" />}
+            {!loading && <input type="submit" value="Enviar" />}
+
+            
+          </form>
+        </div>  
+        { /** Loading */}
+        {loading && <img src={logo} alt="Carregando dados" />}         
+        {error && <p>{error}</p>}
+        {!loading &&         
         <ul>
           {items && items.map((product) => (
             <li key={product.id}>
@@ -101,19 +127,7 @@ function App() {
             </li>
           ))}
         </ul>
-        <div className="add-product">
-          <form onSubmit={handleSubmit}>
-            <label>
-              Nome:
-              <input type="text" name="name" required value={name} onChange={(e) => setName(e.target.value)} />
-            </label>
-            <label>
-              Preço:
-              <input type="number" name="price" required value={price} onChange={(e) => setPrice(e.target.value)} />
-            </label>   
-            <input type="submit" value="Enviar" />
-          </form>
-        </div>
+        }
       </div>
     </div>
   );
