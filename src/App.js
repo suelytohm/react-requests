@@ -7,6 +7,9 @@ const axios = require('axios').default;
 function App() {
 
   const [products, setProducts] = useState([]);
+  const [name, setName] = useState("");
+  const [price, setPrice] = useState(0);
+
   const url = "http://localhost:3000/products";
 
   // Request usando axios
@@ -42,6 +45,36 @@ function App() {
 
 
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const product = {
+      name,
+      price: parseFloat(price),
+    };
+
+    const res = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(product),
+    });
+
+    // Carregamento dinâmico
+
+    const addedProducts = await res.json();
+    setProducts((prevProducts) => [...prevProducts, addedProducts]);
+
+
+    // Limpando dados
+
+    setName("");
+    setPrice("");
+
+    
+  };
+
   return (
     <div className="App">
       <div className="title">
@@ -62,8 +95,20 @@ function App() {
             </li>
           ))}
         </ul>
+        <div className="add-product">
+          <form onSubmit={handleSubmit}>
+            <label>
+              Nome:
+              <input type="text" name="name" value={name} onChange={(e) => setName(e.target.value)} />
+            </label>
+            <label>
+              Preço:
+              <input type="number" name="price" value={price} onChange={(e) => setPrice(e.target.value)} />
+            </label>   
+            <input type="submit" value="Enviar" />
+          </form>
+        </div>
       </div>
-
     </div>
   );
 }
