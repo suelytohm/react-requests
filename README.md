@@ -1,4 +1,4 @@
-#Consumo de API no React
+# Consumo de API no React
 
 Consumo de API (Json-server) no react, usando axios e o fetch, salvando o estado dos dados retornados da API com useState e atualizando dinamicamente na tela. Os dados são carregados uma única vez, fazendo a requisição e salvando o retorno da inserção, juntamente com o estado anterior (prevState)
 
