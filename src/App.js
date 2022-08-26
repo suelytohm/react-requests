@@ -1,21 +1,30 @@
 import './App.css';
 import { useState, useEffect } from 'react';
 
+import { useFetch } from './hooks/useFetch';
+
 const axios = require('axios').default;
 
 function App() {
 
   const [products, setProducts] = useState([]);
+
+  
   const [name, setName] = useState("");
   const [price, setPrice] = useState(0);
-
+  
   const url = "http://localhost:3000/products";
+  
+  const { data: items } = useFetch(url);
+  
+  
 
   // Request usando axios
+  /*
   useEffect(() => {
     (async () => {
       await axios.get(url).then(function (response) {
-        console.log(response.data);
+        // console.log(response.data);
     
       }).catch(function (error) {
         console.log(error)
@@ -23,6 +32,11 @@ function App() {
     })();
 
   }, []);
+
+
+
+
+
 
   // Request usando fetch
 
@@ -36,7 +50,7 @@ function App() {
 
     })();
   }, []);
-
+*/
 
 
   const handleSubmit = async (e) => {
@@ -74,7 +88,7 @@ function App() {
       </div>
       <div>
         <ul>
-          {products.map((product) => (
+          {items && items.map((product) => (
             <li key={product.id}>
               <div key={product.id} className="card">
                 <h3 className="product-title">
