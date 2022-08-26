@@ -39,7 +39,6 @@ li {
   padding: 15px;
   border-radius: 15px;
   transition: 0.5s;
-  cursor: pointer;
 
   -webkit-box-shadow: 5px 5px 11px -4px #000000; 
   box-shadow: 5px 5px 11px -4px #000000;
@@ -116,6 +115,24 @@ input[type=submit]:hover {
 
 }
 
+.btn-delete {
+  margin-bottom: 10px;
+  font-size: 15px;
+  padding: 15px;
+
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: #5F04A1;
+  color: #fff;
+
+  transition: 0.5s;
+  border: 2px solid #fff;
+}
+
+.btn-delete:hover {
+  background-color: #f3ac;
+  
+}
 
 
 @media (prefers-reduced-motion: no-preference) {

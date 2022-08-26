@@ -66,7 +66,9 @@ useEffect(() => {
   */
   // Limpando dados
 
-
+  const handleRemove = (id) => {
+      httpConfig(id, "DELETE");
+  }
 
 
   const handleSubmit = async (e) => {
@@ -76,6 +78,8 @@ useEffect(() => {
       name,
       price: parseFloat(price),
     };
+
+
 
     
     
@@ -123,6 +127,7 @@ useEffect(() => {
                 <p className="product-price">
                   R${product.price.toFixed(2)}
                 </p>
+                <button className="btn-delete" onClick={() => handleRemove(product.id)}>Excluir</button>
               </div>
             </li>
           ))}
